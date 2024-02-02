@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { ReactSVG } from 'react-svg';
 
 const Dropdown = (props) => {
   const {
     placeholder,
     options,
     selectedOption,
-    onClick
+    onClick,
+    icon
   } = props;
 
   const [selected, setSelected] = useState(selectedOption);
@@ -20,9 +22,13 @@ const Dropdown = (props) => {
     <div className="relative inline-block text-left dropdown" onBlur={() => setExpanded(false)}>
       <span className="rounded-md shadow-sm">
         <button
-          className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+          className="inline-flex justify-center w-full px-3 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
           onClick={() => setExpanded(true)}
-          type="button">
+          type="button"
+        >
+          {icon && (
+            <ReactSVG src={icon} className="mr-2" />
+          )}
           <span>{selected?.label || placeholder}</span>
           <svg className="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         </button>

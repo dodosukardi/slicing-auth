@@ -10,9 +10,9 @@ const Button = (props) => {
   } = props;
 
   const typeClassName = {
-    primary: 'rounded p-2 bg-sky-500 text-white disabled:bg-neutral-200 disabled:text-neutral-400 text-sm',
-    primaryBordered: 'rounded p-2 text-sky-400 border-[1px] border-sky-400 text-sm',
-    primaryLink: 'text-sm text-sky-500'
+    primary: 'rounded p-2 bg-sky-500 text-white disabled:bg-neutral-200 disabled:text-neutral-400 text-sm font-bold',
+    primaryBordered: 'rounded p-2 text-sky-400 border-[1px] border-sky-400 text-sm font-bold',
+    primaryLink: 'text-sm text-sky-500 font-bold'
   }[type];
 
   return (
