@@ -5,14 +5,15 @@ import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import { ReactSVG } from 'react-svg';
 import LoginForm from './LoginForm';
+import LoginOTP from './LoginOTP';
 
 const Login = () => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState('form');
   const [isLoading, setIsLoading] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [loginValue, setLoginValue] = useState('');
 
-  const dummySubmit = (val) => {
+  const dummySubmitPassword = (val) => {
     if (val === 'unregistered@domain.com') {
       setLoginValue(val)
       setShowRegisterModal(true);
@@ -21,7 +22,21 @@ const Login = () => {
       setIsLoading(true);
       setTimeout(() => {
         setIsLoading(false);
-        setStep(2);
+        setStep('password');
+      }, 1000);
+    }
+  }
+
+  const dummySubmitOtp = (val) => {
+    if (val === 'unregistered@domain.com') {
+      setLoginValue(val)
+      setShowRegisterModal(true);
+    } else {
+      setShowRegisterModal(false);
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        setStep('otp');
       }, 1000);
     }
   }
@@ -52,8 +67,14 @@ const Login = () => {
               icon="icons/language.svg"
             />
           </div>
-          {step === 1 && <LoginForm onSubmit={(val) => dummySubmit(val)} />}
-          {step === 2 && <LoginPassword onSubmit={() => {}} onBack={() => setStep(1)} />}
+          {step === 'form' && (
+            <LoginForm
+              onSubmitWithPassword={(val) => dummySubmitPassword(val)}
+              onSubmitWithWhatsApp={(val) => dummySubmitOtp(val)}
+            />
+          )}
+          {step === 'password' && <LoginPassword onSubmit={() => {}} onBack={() => setStep('form')} />}
+          {step === 'otp' && <LoginOTP onSubmit={(val) => dummySubmitOtp(val)} onBack={() => setStep('form')} />}
         </>
       )}
 

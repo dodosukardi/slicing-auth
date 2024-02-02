@@ -45,4 +45,4 @@ const LoginPassword = (props) => {
   );
 }
 
-export default LoginPassword
+export default LoginPassword;

@@ -4,7 +4,7 @@ import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 
 const LoginForm = (props) => {
-  const { onSubmit } = props; 
+  const { onSubmitWithPassword, onSubmitWithWhatsApp } = props; 
   const [loginValue, setLoginValue] = useState('');
   const [tab, setTab] = useState(1);
 
@@ -20,7 +20,7 @@ const LoginForm = (props) => {
         text="Next"
         type="primary"
         disabled={loginValue === ''}
-        onClick={() => onSubmit(loginValue)}
+        onClick={() => onSubmitWithPassword(loginValue)}
         className="mt-6"
       />
     </>
@@ -38,7 +38,7 @@ const LoginForm = (props) => {
         text="Next"
         type="primary"
         disabled={loginValue === ''}
-        onClick={() => onSubmit()}
+        onClick={() => onSubmitWithWhatsApp(loginValue)}
         className="mt-6"
       />
     </>
