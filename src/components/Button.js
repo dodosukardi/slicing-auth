@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReactSVG } from 'react-svg';
 
 const Button = (props) => {
   const {
@@ -6,7 +7,8 @@ const Button = (props) => {
     text,
     onClick,
     disabled,
-    className
+    className,
+    icon
   } = props;
 
   const typeClassName = {
@@ -21,6 +23,9 @@ const Button = (props) => {
       onClick={() => onClick()}
       disabled={disabled}
     >
+      {icon && (
+        <ReactSVG src={icon} className="absolute" />
+      )}
       {text}
     </button>
   );

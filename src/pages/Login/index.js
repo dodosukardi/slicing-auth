@@ -6,19 +6,21 @@ import Modal from '../../components/Modal';
 import { ReactSVG } from 'react-svg';
 import LoginForm from './LoginForm';
 import LoginOTP from './LoginOTP';
+import LoginEmployee from './LoginEmployee';
 
 const Login = () => {
   const [step, setStep] = useState('form');
   const [isLoading, setIsLoading] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showRegisterEmailModal, setShowRegisterEmailModal] = useState(false);
+  const [showRegisterPhoneModal, setShowRegisterPhoneModal] = useState(false);
   const [loginValue, setLoginValue] = useState('');
 
   const dummySubmitPassword = (val) => {
+    setLoginValue(val);
     if (val === 'unregistered@domain.com') {
-      setLoginValue(val)
-      setShowRegisterModal(true);
+      setShowRegisterEmailModal(true);
     } else {
-      setShowRegisterModal(false);
+      setShowRegisterEmailModal(false);
       setIsLoading(true);
       setTimeout(() => {
         setIsLoading(false);
@@ -28,11 +30,11 @@ const Login = () => {
   }
 
   const dummySubmitOtp = (val) => {
-    if (val === 'unregistered@domain.com') {
-      setLoginValue(val)
-      setShowRegisterModal(true);
+    setLoginValue(val);
+    if (val === '087886184300') {
+      setShowRegisterPhoneModal(true);
     } else {
-      setShowRegisterModal(false);
+      setShowRegisterPhoneModal(false);
       setIsLoading(true);
       setTimeout(() => {
         setIsLoading(false);
@@ -71,16 +73,30 @@ const Login = () => {
             <LoginForm
               onSubmitWithPassword={(val) => dummySubmitPassword(val)}
               onSubmitWithWhatsApp={(val) => dummySubmitOtp(val)}
+              onChangeMethod={() => setStep('employee')}
             />
           )}
           {step === 'password' && <LoginPassword onSubmit={() => {}} onBack={() => setStep('form')} />}
-          {step === 'otp' && <LoginOTP onSubmit={(val) => dummySubmitOtp(val)} onBack={() => setStep('form')} />}
+          {step === 'otp' && (
+            <LoginOTP
+              phone={loginValue}
+              onSubmit={(val) => dummySubmitOtp(val)}
+              onBack={() => setStep('form')}
+            />
+          )}
+          {step === 'employee' && (
+            <LoginEmployee
+              phone={loginValue}
+              onSubmit={(val) => dummySubmitOtp(val)}
+              onChangeMethod={() => setStep('form')}
+            />
+          )}
         </>
       )}
 
       <p className="absolute bottom-[32px] text-center text-sm text-gray-400">2024 © PT. eDOT</p>
 
-      <Modal show={showRegisterModal} onClose={() => setShowRegisterModal(false)}>
+      <Modal show={showRegisterEmailModal} onClose={() => setShowRegisterEmailModal(false)}>
         <ReactSVG src="icons/esuite-logo.svg" className="mx-auto" />
         <p className="text-center text-[12px] mb-4 text-gray-800 mt-1">Account Center</p>
 
@@ -90,8 +106,23 @@ const Login = () => {
         </p>
         <p className="text-center font-bold mb-2 text-gray-800 mb-8">{loginValue}</p>
         <div className="flex gap-2">
-          <Button text="Edit" type="primaryBordered" className="flex-1" onClick={() => setShowRegisterModal(false)} />
-          <Button text="Yes, Register" type="primary" className="flex-1" onClick={() => setShowRegisterModal(false)} />
+          <Button text="Edit" type="primaryBordered" className="flex-1" onClick={() => setShowRegisterEmailModal(false)} />
+          <Button text="Yes, Register" type="primary" className="flex-1" onClick={() => setShowRegisterEmailModal(false)} />
+        </div>
+      </Modal>
+
+      <Modal show={showRegisterPhoneModal} onClose={() => setShowRegisterPhoneModal(false)}>
+        <ReactSVG src="icons/esuite-logo.svg" className="mx-auto" />
+        <p className="text-center text-[12px] mb-4 text-gray-800 mt-1">Account Center</p>
+
+        <p className="text-center font-bold mb-2 mt-4 text-gray-800">Number Not Registered</p>
+        <p className="text-center text-[12px] mb-4 text-gray-800">
+          You can continue by creating new account with this number
+        </p>
+        <p className="text-center font-bold mb-2 text-gray-800 mb-8">{loginValue}</p>
+        <div className="flex gap-2">
+          <Button text="Edit" type="primaryBordered" className="flex-1" onClick={() => setShowRegisterPhoneModal(false)} />
+          <Button text="Yes, Register" type="primary" className="flex-1" onClick={() => setShowRegisterPhoneModal(false)} />
         </div>
       </Modal>
     </div>

@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import OTPInput from '../../components/OTPInput';
 
 const LoginOTP = (props) => {
-  const { onSubmit, onBack } = props;
+  const { onSubmit, phone, onBack } = props;
 
   return (
     <>
@@ -19,7 +19,7 @@ const LoginOTP = (props) => {
           Input the OTP code sent to your WhatsApp number at
         </p>
         <p className="text-center text-[12px] mb-6 text-gray-800 font-bold">
-          087886184300
+          {phone}
         </p>
 
         <div className="flex gap-2">
@@ -48,14 +48,6 @@ const LoginOTP = (props) => {
             />
           </div>
         </div>
-
-        {/* <Button
-          text="Log In"
-          type="primary"
-          disabled={passwordValue === ''}
-          onClick={() => onSubmit()}
-          className="mt-6"
-        /> */}
       </div>
     </>
   );

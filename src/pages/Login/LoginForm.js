@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
+import { redirect } from 'react-router-dom';
 
 const LoginForm = (props) => {
-  const { onSubmitWithPassword, onSubmitWithWhatsApp } = props; 
+  const { onSubmitWithPassword, onSubmitWithWhatsApp, onChangeMethod } = props; 
   const [loginPasswordValue, setLoginPasswordValue] = useState('');
   const [loginWhatsAppValue, setLoginWhatsAppValue] = useState('');
   const [tab, setTab] = useState(1);
@@ -32,14 +33,14 @@ const LoginForm = (props) => {
       <TextInput
         value={loginWhatsAppValue}
         onChange={(val) => setLoginWhatsAppValue(val)}
-        placeholder="Masukkan nomor telepon"
+        placeholder="Input Phone Number"
       />
 
       <Button
         text="Next"
         type="primary"
         disabled={loginWhatsAppValue === ''}
-        onClick={() => onSubmitWithWhatsApp(setLoginWhatsAppValue)}
+        onClick={() => onSubmitWithWhatsApp(loginWhatsAppValue)}
         className="mt-6"
       />
     </>
@@ -76,9 +77,10 @@ const LoginForm = (props) => {
           text="Sign in with Employee ID"
           type="primaryBordered"
           className="mb-2"
-          onClick={() => {}}
+          onClick={() => onChangeMethod()}
         />
         <Button
+          icon="icons/google-logo.svg"
           text="Sign in with Google"
           type="primaryBordered"
           onClick={() => {}}
@@ -97,7 +99,7 @@ const LoginForm = (props) => {
             <Button
               text="Forgot Password"
               type="primaryLink"
-              onClick={() => {}}
+              onClick={() => window.location.href = '/forgot-password'}
             />
           </div>
         </div>
