@@ -5,22 +5,23 @@ import Button from '../../components/Button';
 
 const LoginForm = (props) => {
   const { onSubmitWithPassword, onSubmitWithWhatsApp } = props; 
-  const [loginValue, setLoginValue] = useState('');
+  const [loginPasswordValue, setLoginPasswordValue] = useState('');
+  const [loginWhatsAppValue, setLoginWhatsAppValue] = useState('');
   const [tab, setTab] = useState(1);
 
   const renderLoginWithEmail = () => (
     <>
       <TextInput
-        value={loginValue}
-        onChange={(val) => setLoginValue(val)}
+        value={loginPasswordValue}
+        onChange={(val) => setLoginPasswordValue(val)}
         placeholder="Email or Username"
       />
 
       <Button
         text="Next"
         type="primary"
-        disabled={loginValue === ''}
-        onClick={() => onSubmitWithPassword(loginValue)}
+        disabled={loginPasswordValue === ''}
+        onClick={() => onSubmitWithPassword(loginPasswordValue)}
         className="mt-6"
       />
     </>
@@ -29,16 +30,16 @@ const LoginForm = (props) => {
   const renderLoginWithWhatsApp = () => (
     <>
       <TextInput
-        value={loginValue}
-        onChange={(val) => setLoginValue(val)}
+        value={loginWhatsAppValue}
+        onChange={(val) => setLoginWhatsAppValue(val)}
         placeholder="Masukkan nomor telepon"
       />
 
       <Button
         text="Next"
         type="primary"
-        disabled={loginValue === ''}
-        onClick={() => onSubmitWithWhatsApp(loginValue)}
+        disabled={loginWhatsAppValue === ''}
+        onClick={() => onSubmitWithWhatsApp(setLoginWhatsAppValue)}
         className="mt-6"
       />
     </>
