@@ -91,7 +91,7 @@ const LoginForm = (props) => {
             <Button
               text="Create Account"
               type="primaryLink"
-              onClick={() => {}}
+              onClick={() => window.location.href = '/register'}
             />
           </div>
           <div className="w-[4px] h-[4px] rounded-full bg-gray-200" />
