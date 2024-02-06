@@ -17,15 +17,16 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showRegisteredEmailModal, setShowRegisteredEmailModal] = useState(false);
+  const [showRegisteredModal, setShowRegisteredModal] = useState(false);
   const [showRegisterEmailModal, setShowRegisterEmailModal] = useState(false);
   const [showRegisterPhoneModal, setShowRegisterPhoneModal] = useState(false);
   const [registerValue, setRegisterValue] = useState('');
 
   const dummySubmitEmail = (val) => {
     setRegisterValue(val);
+    setEmail(val)
     if (val === 'registered@domain.com') {
-      setShowRegisteredEmailModal(true);
+      setShowRegisteredModal(true);
     } else {
       setShowRegisterEmailModal(true);
     }
@@ -43,14 +44,18 @@ const Register = () => {
   }
 
   const sendWhatsappOtp = (val) => {
+    setPhone(val)
     setShowRegisterEmailModal(false);
     setShowRegisterPhoneModal(false);
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setPhone(val)
-      setStep('sendVerification');
-    }, 1000);
+    if (val==='081234567') {
+      setShowRegisteredModal(true);
+    } else {
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        setStep('sendVerification');
+      }, 1000);
+    }
   }
 
   const onSubmitOtp = (val) => {
@@ -140,16 +145,16 @@ const Register = () => {
         </div>
       </Modal>
 
-      <Modal show={showRegisteredEmailModal} onClose={() => setShowRegisterEmailModal(false)}>
+      <Modal show={showRegisteredModal} onClose={() => setShowRegisterEmailModal(false)}>
         <ReactSVG src="icons/esuite-logo.svg" className="mx-auto" />
         <p className="text-center text-[12px] mb-4 text-gray-800 mt-1">Account Center</p>
 
-        <p className="text-center font-bold mb-2 mt-4 text-gray-800 m-20">Email has been registered</p>
-        <p className="text-center text-[12px] mb-4 text-gray-800 mt-0">you can next for Sign In with email</p>
+        <p className="text-center font-bold mb-2 mt-4 text-gray-800 m-20">{phone==='' ? 'Email' : 'Whatsapp'} has been registered</p>
+        <p className="text-center text-[12px] mb-4 text-gray-800 mt-0">you can next for Sign In with {phone==='' ? 'Email' : 'Whatsapp'}</p>
         <p className="text-center font-bold mb-2 mt-4 text-gray-800 m-20">{registerValue}</p>
         
         <div className="flex gap-2 mt-4">
-          <Button text="Cancle" type="primaryBordered" className="flex-1" onClick={() => setShowRegisteredEmailModal(false)} />
+          <Button text="Cancle" type="primaryBordered" className="flex-1" onClick={() => setShowRegisteredModal(false)} />
           <Button text="Yes, Sign In" type="primary" className="flex-1" onClick={() => navigate('/')} />
         </div>
       </Modal>
