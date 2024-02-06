@@ -5,6 +5,7 @@ import OTPInput from '../../components/OTPInput';
 
 const EmailVerificationCode = (props) => {
   const {onSubmitOtp, phone, onBack, email} = props;
+  console.log({onSubmitOtp, phone, onBack, email})
 
   const submitOtp = (val) => {
     onSubmitOtp(val)
@@ -19,9 +20,9 @@ const EmailVerificationCode = (props) => {
         <p className="text-center text-[12px] mb-6 text-gray-800 mt-1">Account Center</p>
         <p className="text-center font-bold mb-2 text-gray-800">Verification Code</p>
         <p className="text-center text-[12px] mb-6 text-gray-800">
-          input the OTP code sent to your email at
+          input the OTP code sent to your {phone==='' ? 'Email' : 'Whatsapp'} at
         </p>
-        <p className="text-center font-bold mb-2 text-gray-800">{email}</p>
+        <p className="text-center font-bold mb-2 text-gray-800">{email || phone }</p>
 
         <div className="flex gap-2">
           <OTPInput

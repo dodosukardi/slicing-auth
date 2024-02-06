@@ -7,10 +7,10 @@ import { redirect } from 'react-router-dom';
 const RegisterForm = (props) => {
   const { onSubmitWithEmail, onSubmitWithWhatsApp, onChangeMethod } = props; 
   const [registerEmailValue, setRegisterEmailValue] = useState('');
-  const [loginWhatsAppValue, setLoginWhatsAppValue] = useState('');
+  const [loginWhatsAppValue, setRegisterWhatsAppValue] = useState('');
   const [tab, setTab] = useState(1);
 
-  const renderLoginWithEmail = () => (
+  const renderRegisterWithEmail = () => (
     <>
       <TextInput
         value={registerEmailValue}
@@ -28,11 +28,11 @@ const RegisterForm = (props) => {
     </>
   );
 
-  const renderLoginWithWhatsApp = () => (
+  const renderRegisterWithWhatsApp = () => (
     <>
       <TextInput
         value={loginWhatsAppValue}
-        onChange={(val) => setLoginWhatsAppValue(val)}
+        onChange={(val) => setRegisterWhatsAppValue(val)}
         placeholder="Input Phone Number"
       />
 
@@ -64,8 +64,8 @@ const RegisterForm = (props) => {
           </div>
         </div>
 
-        {tab === 1 && renderLoginWithEmail()}
-        {tab === 2 && renderLoginWithWhatsApp()}
+        {tab === 1 && renderRegisterWithEmail()}
+        {tab === 2 && renderRegisterWithWhatsApp()}
 
         <div className="relative flex py-5 items-center">
           <div className="flex-grow border-t border-gray-400"></div>
@@ -83,19 +83,12 @@ const RegisterForm = (props) => {
         <div className="flex text-center items-center mt-8">
           <div className="flex-1">
             <Button
-              text="Create Account"
+              text="Sign In"
               type="primaryLink"
-              onClick={() => {}}
+              onClick={() => window.location.href = '/'}
             />
           </div>
           <div className="w-[4px] h-[4px] rounded-full bg-gray-200" />
-          <div className="flex-1">
-            <Button
-              text="Forgot Password"
-              type="primaryLink"
-              onClick={() => window.location.href = '/forgot-password'}
-            />
-          </div>
         </div>
       </div>
     </>

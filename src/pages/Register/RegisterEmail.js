@@ -4,7 +4,7 @@ import TextInput from '../../components/TextInput';
 import Button from '../../components/Button';
 
 const RegisterEmail = (props) => {
-  const { onSubmitRegisterEmail, onBack, email } = props;
+  const { onSubmitRegisterEmail, onBack, email, phone } = props;
   const [passwordValue, setPasswordValue] = useState('');
   const [fullNameValue, setFullNameValue] = useState('');
 
@@ -16,9 +16,9 @@ const RegisterEmail = (props) => {
       <div className="w-96 rounded-[16px] border-2 border-neutral-100 shadow-sm flex flex-col p-8 mb-8 bg-white">
         <ReactSVG src="icons/esuite-logo.svg" className="mx-auto" />
         <p className="text-center text-[12px] mb-6 text-gray-800 mt-1">Account Center</p>
-        <p className="text-center font-bold mb-2 text-gray-800">Register With Email</p>
+        <p className="text-center font-bold mb-2 text-gray-800">Register With {phone==='' ? 'Email' : 'Whatsapp'}</p>
         <p className="text-center text-[12px] mb-6 text-gray-800">
-        {email}
+        {email || phone }
         </p>
 
         <TextInput
@@ -26,6 +26,7 @@ const RegisterEmail = (props) => {
           type="fullname"
           value={fullNameValue}
           onChange={(val) => setFullNameValue(val)}
+          className="mb-2"
           placeholder="Full Name"
         />
         <TextInput
@@ -33,6 +34,7 @@ const RegisterEmail = (props) => {
           type="password"
           value={passwordValue}
           onChange={(val) => setPasswordValue(val)}
+          className="mb-2"
           placeholder="Password"
         />
         <Button

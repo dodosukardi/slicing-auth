@@ -15,6 +15,7 @@ const Register = () => {
 
   const [step, setStep] = useState('form');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showRegisteredEmailModal, setShowRegisteredEmailModal] = useState(false);
   const [showRegisterEmailModal, setShowRegisterEmailModal] = useState(false);
@@ -32,10 +33,22 @@ const Register = () => {
 
   const sendVerificationCode = (val) => {
     setShowRegisterEmailModal(false);
+    setShowRegisterPhoneModal(false);
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       setEmail(val)
+      setStep('sendVerification');
+    }, 1000);
+  }
+
+  const sendWhatsappOtp = (val) => {
+    setShowRegisterEmailModal(false);
+    setShowRegisterPhoneModal(false);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setPhone(val)
       setStep('sendVerification');
     }, 1000);
   }
@@ -46,7 +59,7 @@ const Register = () => {
       setTimeout(() => {
         setIsLoading(false);
         setEmail(val)
-        setStep('completeEmailRegister');
+        setStep('completeRegister');
       }, 1000);
     }
   }
@@ -61,16 +74,16 @@ const Register = () => {
 
   const dummySubmitOtp = (val) => {
     setRegisterValue(val);
-    if (val === '087886184300') {
+    // if (val === '087886184300') {
       setShowRegisterPhoneModal(true);
-    } else {
-      setShowRegisterPhoneModal(false);
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsLoading(false);
-        setStep('otp');
-      }, 1000);
-    }
+    // } else {
+    //   setShowRegisterPhoneModal(false);
+    //   setIsLoading(true);
+    //   setTimeout(() => {
+    //     setIsLoading(false);
+    //     setStep('otp');
+    //   }, 1000);
+    // }
   }
 
   return (
@@ -106,22 +119,8 @@ const Register = () => {
               onChangeMethod={() => setStep('employee')}
             />
           )}
-          {step === 'sendVerification' && <EmailVerificationCode onSubmitOtp={(otp) => onSubmitOtp(otp)} onBack={() => setStep('form')} email={email} />}
-          {step === 'completeEmailRegister' && <RegisterEmail onSubmitRegisterEmail={(otp) => onSubmitRegisterEmail(otp)} onBack={() => setStep('form')} email={email} />}
-          {step === 'otp' && (
-            <RegisterOTP
-              phone={registerValue}
-              onSubmit={(val) => dummySubmitOtp(val)}
-              onBack={() => setStep('form')}
-            />
-          )}
-          {step === 'employee' && (
-            <RegisterEmployee
-              phone={registerValue}
-              onSubmit={(val) => dummySubmitOtp(val)}
-              onChangeMethod={() => setStep('form')}
-            />
-          )}
+          {step === 'sendVerification' && <EmailVerificationCode onSubmitOtp={(otp) => onSubmitOtp(otp)} onBack={() => setStep('form')} email={email} phone={phone} />}
+          {step === 'completeRegister' && <RegisterEmail onSubmitRegisterEmail={(otp) => onSubmitRegisterEmail(otp)} onBack={() => setStep('form')} email={email}  phone={phone}/>}
         </>
       )}
 
@@ -159,14 +158,13 @@ const Register = () => {
         <ReactSVG src="icons/esuite-logo.svg" className="mx-auto" />
         <p className="text-center text-[12px] mb-4 text-gray-800 mt-1">Account Center</p>
 
-        <p className="text-center font-bold mb-2 mt-4 text-gray-800">Number Not Registered</p>
+        <p className="text-center font-bold mb-2 mt-4 text-gray-800">{registerValue}</p>
         <p className="text-center text-[12px] mb-4 text-gray-800">
-          You can continue by creating new account with this number
+          Is the Whatsapp number you entered correct ?
         </p>
-        <p className="text-center font-bold mb-2 text-gray-800 mb-8">{registerValue}</p>
         <div className="flex gap-2">
           <Button text="Edit" type="primaryBordered" className="flex-1" onClick={() => setShowRegisterPhoneModal(false)} />
-          <Button text="Yes, Register" type="primary" className="flex-1" onClick={() => setShowRegisterPhoneModal(false)} />
+          <Button text="Next" type="primary" className="flex-1" onClick={() => sendWhatsappOtp(registerValue)} />
         </div>
       </Modal>
     </div>
