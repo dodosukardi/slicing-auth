@@ -4,7 +4,7 @@ import TextInput from '../components/TextInput';
 import Button from '../components/Button';
 import { ReactSVG } from 'react-svg';
 
-const ForgotPassword = () => {
+const ForgotPasswordd = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [value, setValue] = useState('');
 
@@ -70,4 +70,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordd;
