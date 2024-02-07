@@ -11,6 +11,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import Helps from "./pages/Helps";
 import ForgotPassword from "./pages/ForgotPassword";
+import ErrorPage from "./pages/ErrorPage";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route exact path="/terms-and-condition" element={<TermsAndConditions />} />
         <Route exact path="/helps" element={<Helps />} />
+        <Route exact path="/error" element={<ErrorPage />} />
       </Routes>
     </Router>
   );
